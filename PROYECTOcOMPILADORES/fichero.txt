@@ -1,0 +1,17 @@
+int: x;
+int:funcion(int: y,int: c)
+{
+if(x=4) 
+{
+then 
+t=c+y;
+};
+}
+
+
+int:funcionbajo(int: y)
+{
+funcion();
+do y++ while (y==4);
+t[0]=t+1;
+}
