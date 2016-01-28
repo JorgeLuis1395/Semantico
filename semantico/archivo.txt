@@ -1,0 +1,19 @@
+#include <asd>
+int : x;
+{
+//Declaracion de variables globales
+int : j;
+int : k;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+	public static void Main() 
+	{
+	float:y;
+
+	bool:x;
+	
+	y=x;
+	
+	int:j;
+	
+	}
+	
+}
