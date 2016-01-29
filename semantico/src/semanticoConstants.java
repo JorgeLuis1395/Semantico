@@ -9,43 +9,43 @@ public interface semanticoConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int IGUAL = 1;
+  int PUBLIC = 1;
   /** RegularExpression Id. */
-  int MAS = 2;
+  int PRIVATE = 2;
   /** RegularExpression Id. */
-  int MENOS = 3;
+  int STATIC = 3;
   /** RegularExpression Id. */
-  int POR = 4;
+  int VOID = 4;
   /** RegularExpression Id. */
-  int DIVIDE = 5;
+  int MAIN = 5;
   /** RegularExpression Id. */
-  int PUBLIC = 6;
+  int PROGRAMA = 6;
   /** RegularExpression Id. */
-  int PRIVATE = 7;
+  int IF = 7;
   /** RegularExpression Id. */
-  int STATIC = 8;
+  int THEN = 8;
   /** RegularExpression Id. */
-  int VOID = 9;
+  int ELSE = 9;
   /** RegularExpression Id. */
-  int MAIN = 10;
+  int DO = 10;
   /** RegularExpression Id. */
-  int PROGRAMA = 11;
+  int WHILE = 11;
   /** RegularExpression Id. */
-  int IF = 12;
+  int OUT = 12;
   /** RegularExpression Id. */
-  int THEN = 13;
+  int INPUT = 13;
   /** RegularExpression Id. */
-  int ELSE = 14;
+  int RETURN = 14;
   /** RegularExpression Id. */
-  int DO = 15;
+  int IGUAL = 15;
   /** RegularExpression Id. */
-  int WHILE = 16;
+  int MAS = 16;
   /** RegularExpression Id. */
-  int OUT = 17;
+  int MENOS = 17;
   /** RegularExpression Id. */
-  int READ = 18;
+  int POR = 18;
   /** RegularExpression Id. */
-  int RETURN = 19;
+  int DIVIDE = 19;
   /** RegularExpression Id. */
   int PARIZQ = 20;
   /** RegularExpression Id. */
@@ -114,6 +114,8 @@ public interface semanticoConstants {
   int DOSPUNTOS = 52;
   /** RegularExpression Id. */
   int BOOLEANO = 53;
+  /** RegularExpression Id. */
+  int DOUBLE = 54;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -121,16 +123,11 @@ public interface semanticoConstants {
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
-    "\"=\"",
-    "\"+\"",
-    "\"-\"",
-    "\"*\"",
-    "\"/\"",
     "\"public\"",
     "\"private\"",
     "\"static\"",
     "\"void\"",
-    "\"public static void Main()\"",
+    "\"main()\"",
     "\"Programa\"",
     "\"if\"",
     "\"then\"",
@@ -140,6 +137,11 @@ public interface semanticoConstants {
     "\"output\"",
     "\"input\"",
     "\"return\"",
+    "\"=\"",
+    "\"+\"",
+    "\"-\"",
+    "\"*\"",
+    "\"/\"",
     "\"(\"",
     "\")\"",
     "\"{\"",
@@ -174,13 +176,14 @@ public interface semanticoConstants {
     "<CARACTER>",
     "\":\"",
     "<BOOLEANO>",
+    "\"double\"",
     "\" \"",
     "\"\\n\"",
     "\"\\r\"",
     "\"\\r\\n\"",
     "\"\\t\"",
-    "<token of kind 59>",
     "<token of kind 60>",
+    "<token of kind 61>",
   };
 
 }
