@@ -1,16 +1,13 @@
-#include <stdio>
-{
 int : saldo;
 int : k;
 int : mat[2];  
 char: j; 
-bool: true; 
 int: res;
- main(){	
+ main(){
+	bool: a;	
 	bool: b;
 	float:x;
 	bool: r;
-	r = true;
 	res = r+1;
 	}	
 int: Suma (int:x, int:y)
@@ -24,7 +21,7 @@ bool:Suma2  (int:x, int:y)
 	int: c;
 	c=x+y;
 	bool: false;
-	p=false+4;
+	
 	}
 }
 	
