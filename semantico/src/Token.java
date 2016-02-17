@@ -92,6 +92,18 @@ public class Token implements java.io.Serializable {
     this.image = image;
   }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
+    }
+
   /**
    * Returns the image.
    */

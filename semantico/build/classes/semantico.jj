@@ -6,66 +6,69 @@ class semantico
 	{
 		try
 		{
-		    File archivo = new File("archivo.txt");
+		    File fe = new File("archivo.txt");
 			BufferedReader entrada;
-
-			entrada = new BufferedReader(new FileReader(archivo));
-		
-     		semantico analizador = new semantico(entrada) ;
+			entrada = new BufferedReader(new FileReader(fe));
+			semantico analizador = new semantico(entrada) ;
 			analizador.Programa();
-			System.out.println("\t =>**** Analisis correcto**** <=.");		
+			System.out.println("\tAnalizador ha terminado.");
+			GenerarCodigo gen1 = new GenerarCodigo();
+			gen1.imprimir(); 
+				
 		}
 		catch(ParseException e)
 		{
 			System.out.println(e.getMessage());
-			System.out.println("\t =>**** Analisis correcto**** <=.");
+			System.out.println("\tAnalizador ha terminado.");
 		}
-		TokenAsignaciones.visualizarTablas();
+		
+		//TokenAsignaciones.visualizarTablas();
+		//TokenAsignaciones.visualizarTablasFunciones();
 	}
 }
 PARSER_END(semantico)
 
-TOKEN:
-{
-	  <PUBLIC: "public"> //1
-	| <PRIVATE: "private"> //2
-	| <STATIC: "static"> //3
-	| <VOID: "void"> //4
-	| <MAIN: "main()"> //5
-	| <PROGRAMA: "Programa" >  //6
-	| <IF: "if" > //7
-	| <THEN:"then" > //8
-	| <ELSE:"else" > //9
-	| <DO:"do" > //10
-	| <WHILE:"while" > //11
-	| <OUT:"output" > //12
-	| <INPUT:"input" > //13
-	| <RETURN:"return" > //14	
-}
 TOKEN : 
 { 
-	  <IGUAL : "=">  //15
-	| <MAS : "+" >  //16
-	| <MENOS:"-">  //17
-	| <POR:"*"> //18
-	| <DIVIDE:"/"> //19 
+	  <IGUAL : "=">  //1
+	| <MAS : "+" >  //2
+	| <MENOS:"-">  //3
+	| <POR:"*"> //4
+	| <DIVIDE:"/">  //5
 	
 }
 TOKEN:
 {
-      <PARIZQ: "(" > //19
-	| <PARDER: ")" > //20
-	| <LLAVEIZQ: "{" > //21
-	| <LLAVEDER: "}" > //22
-	| <CORIZQ: "[" > //23
-	| <CORDER: "]" > //24
-	| <PUNTOYCOMA: ";" > //25
-	| <COMA: "," > //26
-	| <COMILLAS: "\""> //27
-	| <EXCLAMACION: "!"> //28
-	| <AMP: "&"> //29
-	| <DINERO: "$">//30 
-	| <NUMERAL: "#">//31
+	  <PUBLIC: "public"> //6
+	| <PRIVATE: "private"> //7
+	| <STATIC: "static"> //8
+	| <VOID: "void"> //9
+	| <MAIN: "int Main()"> //10
+	| <PROGRAMA: "Programa" >  //11
+	| <IF: "if" > //12
+	| <THEN:"then" > //13
+	| <ELSE:"else" > //14
+	| <DO:"do" > //15
+	| <WHILE:"while" > //16
+	| <WRITE:"output" > //17
+	| <READ:"input" > //18
+	| <RETURN:"return" > //19
+	
+}
+TOKEN:
+{
+      <PARIZQ: "(" > //20
+	| <PARDER: ")" > //21
+	| <LLAVEIZQ: "{" > //22
+	| <LLAVEDER: "}" > //23
+	| <CORIZQ: "[" > //24
+	| <CORDER: "]" > //25
+	| <PUNTOYCOMA: ";" > //26
+	| <COMA: "," > //27
+	| <COMILLAS: "\""> //28
+	| <EXCLAMACION: "!"> //29
+	| <AMP: "&"> //30
+	| <DINERO: "$"> //31
 }
 TOKEN:
 {
@@ -73,7 +76,7 @@ TOKEN:
 	| <MENORIGUAL: "<=" > //33
 	| <MENOR: "<" > //34
 	| <MAYORIGUAL: ">=" > //35
-	| <MAYOR: ">" >//36
+	| <MAYOR: ">" > //36
 	| <DIFERENTE: "!=" > //37
 	| <OR: "||" > //38
 	| <AND: "&&"> //39
@@ -81,99 +84,101 @@ TOKEN:
 
 TOKEN:
 {
-	  <INT:"int"> //41
-	| <INCLUDE: "include">//42
-	| <FLOAT: "float"> //43
-	| <CHAR: "char"> //44
-	| <STRING: "string">//45 
-	| <BOOL: "bool"> //46
-	| <NUMERO : ("-")?(["1"-"9"])+ | "0">  //47
-	| <IDENTIFICADOR : ["a"-"z","A"-"Z"](["a"-"z","A"-"Z","0"-"9","_"])*>  //48
-	| <DECIMAL : <NUMERO>["."](["0"-"9"])+ > //49
-	| <CADENA : <COMILLAS>(~[])*<COMILLAS>> //50
-	| <CARACTER : "'"(~[])"'" >//51
-	| <DOSPUNTOS : ":"> //52
-	| <BOOLEANO : "true" | "false"> //53
-	|<DOUBLE : "double">//54
+	  <INT:"int"> //40
+	| <FLOAT: "float"> //41
+	| <CHAR: "char"> //42
+	| <STRING: "string"> //43
+	| <BOOL: "bool"> //44
+	| <NUMERO : ("-")?(["1"-"9"])+ | "0">  //45
+	| <BOOLEANO : "true" | "false"> //46
+	| <IDENTIFICADOR : ["a"-"z"](["a"-"z"])*>  //47
+	| <DECIMAL : <NUMERO>["."](["0"-"9"])+ > //48
+	| <CADENA : <COMILLAS>(~[])*<COMILLAS>> //49
+	| <CARACTER : "'"(~[])"'" >//50
+	| <DOSPUNTOS : ":"> //51
 }
-
 
 SKIP : 
 { 
 	" "|"\n" | "\r" | "\r\n" | "\t"
-	//ignrar comentarios
+	//ignora comentarios
 	|  <"//" (~["\n","\r"])* ("\n" | "\r" | "\r\n")>
   	|  <"/*" (~["*"])* "*" ("*" | ~["*","/"] (~["*"])* "*")* "/">
 }
-void libreria() :
-{}
-{
- <NUMERAL><INCLUDE><MENOR><IDENTIFICADOR><MAYOR>
-}
+
+//*********declaracion de la estructura general del programa
 void Programa() :
 {}
 {
-	
-	(libreria())*(VariablesGlobales())* <LLAVEIZQ>Cuerpo()<LLAVEDER><EOF>
+	<PROGRAMA><IDENTIFICADOR><LLAVEIZQ>Cuerpo()<LLAVEDER><EOF>	
 }
+//*********Declaracion del cuerpo del programa
 void Cuerpo():
 {
-	TokenAsignaciones.SetTables();	
-}
+  TokenAsignaciones.SetTables();	
+  }
 {
-	(VariablesGlobales())* Principal() (ImplementacionFunciones())*
+ ( VariablesGlobales())* Principal() (ImplementacionFunciones())* 
 } 
-
+//*********declaracion de las variables en general
 void VariablesGlobales():
 {
-TokenAsignaciones.SetTables();
+  int td;
+Token var;
 }
 {
-  	variable()(vector()|declaracion())	 
+(TiposDatos()	{td = token.kind;})<DOSPUNTOS> var=<IDENTIFICADOR> { var.setKind(td);}
+	( vector(var)
+	|declare(var) 
+	|funcion(var))
 }
 
-void vector():
-{}
+//*********declaracion de vectores
+void vector(Token var):
+{Token num;
+  GenerarCodigo gen = new GenerarCodigo();}
 {
-<CORIZQ> <NUMERO> <CORDER> <PUNTOYCOMA>
-| declaracion() 
+  {TokenAsignaciones.insertarSimbolo(var);}
+ 
+  
+<CORIZQ> num=<NUMERO> <CORDER> <PUNTOYCOMA>
+ { gen.generadorVector(num.image,var.image);}
 }
 
-void declaracion():
-{}
+//*********declaracion de varibles globales
+void declare(Token var):
+{Token par;
+GenerarCodigo gen = new GenerarCodigo();}
 {
-  (<COMA><IDENTIFICADOR>)* <PUNTOYCOMA>
+ {TokenAsignaciones.insertarSimbolo(var);}
+ { gen.generadorVariables(var.image);}
+(<COMA>par=< IDENTIFICADOR >{
+par.setKind(var.kind);TokenAsignaciones.insertarSimbolo(par);}{ gen.generadorVariables(par.image);})* <PUNTOYCOMA>
+}
 
+//*********Declaracion Funciones
+void funcion(Token var):
+{int td;
+ Token par;}
+{ < PARIZQ >
+{ TokenAsignaciones.insertarFuncion(var);}
+((TiposDatos(){td = token.kind;})
+	< DOSPUNTOS > par=< IDENTIFICADOR >{ par.setKind(td); TokenAsignaciones.insertarParametros(var,par); }
+|< COMA > (TiposDatos(){td = token.kind;}) < DOSPUNTOS >par=< IDENTIFICADOR >{ par.setKind(td); TokenAsignaciones.insertarParametros(var,par); } )*< PARDER > < PUNTOYCOMA > 
+ 	
 }
 
-void variable():
-{
- int aux;
-  Token variable;
-}
-{
-(TiposDatos())
-	{
-	  aux = token.kind;
-	}
-	<DOSPUNTOS> variable = <IDENTIFICADOR> 
-	{		
-		TokenAsignaciones.InsertarSimbolo(variable, aux);
-	}   
-}
-void parametros():
-{
-}
-{ (variable()| <COMA> variable())*
-}
+//*********definicin de main
 void Principal():
+{Token fun;
+GenerarCodigo gen = new GenerarCodigo(); }
 {
-	TokenAsignaciones.SetTables();	
-}
-{
-	<MAIN><LLAVEIZQ> Sentencias() <LLAVEDER> 	
+        fun=<MAIN> {fun.Image("main"); fun.Kind(1);TokenAsignaciones.insertarFuncion(fun);}
+	{gen.generadorMain();
+	}<LLAVEIZQ> Sentencias(fun) <LLAVEDER> 	
 }
 
+//*********tipos de datos de los identificadores, vectores y funciones
 void TiposDatos():
 {}
 {
@@ -182,79 +187,90 @@ void TiposDatos():
 	|<STRING>
 	|<CHAR>
 	|<BOOL>
-	|<DOUBLE>
 }
+
+// *********Implementacion de las funciones
 void ImplementacionFunciones():
+{int t1,t2,t3;
+Token fun,par1, par2; }
 {
-}
-{
-  cabecera() cuerpoFuncion()
+(TiposDatos(){t1 = token.kind;}
+   <DOSPUNTOS> fun=<IDENTIFICADOR> { fun.setKind(t1);}< PARIZQ >
+{ TokenAsignaciones.verificarFuncion1(fun);})
+((TiposDatos(){t2 = token.kind;})< DOSPUNTOS > par1=< IDENTIFICADOR >{ par1.setKind(t2); TokenAsignaciones.verificarFuncion2(fun,par1); }
+|< COMA > (TiposDatos(){t3 = token.kind;})< DOSPUNTOS >par2=< IDENTIFICADOR >
+{ par2.setKind(t3); TokenAsignaciones.verificarFuncion2(fun,par2); } )* < PARDER > 
+ cuerpoFuncion(fun)
 }
 
-void cabecera():
+// *********Cuerpo de las funciones
+void cuerpoFuncion(Token fun):
 {
+  Token nom;
 }
 {
-  TiposDatos()  < DOSPUNTOS > < IDENTIFICADOR > < PARIZQ > parametros() < PARDER >  
+  < LLAVEIZQ > Sentencias(fun) < RETURN > nom =< IDENTIFICADOR > {TokenAsignaciones.insertarRetorno(fun,nom);TokenAsignaciones.validarRetornos(fun,nom);} < PUNTOYCOMA >  < LLAVEDER > 
 }
 
-void cuerpoFuncion():
+//**********Declaracion de variables locales
+void VariablesLocales(Token fun):
 {
-}
-{
-  < LLAVEIZQ > Sentencias()  < LLAVEDER > 
-}
-void VariablesLocales():
-{
-	int aux;
-	Token variable;	
+	int td;
+	Token var, var2;
+	GenerarCodigo gen = new GenerarCodigo();	
 }
 {
 (
 	(TiposDatos())
-	
 	{
-		aux = token.kind;
+	  td = token.kind;
 	}
-	<DOSPUNTOS>variable = <IDENTIFICADOR> 
-	{		
-		TokenAsignaciones.InsertarSimbolo(variable, aux);
-	} 
-	[VariablesAsignacion(variable)]
+	<DOSPUNTOS> var = <IDENTIFICADOR>
+	{
+	  var2 = var;
+	  var2.setKind(td);
+		TokenAsignaciones.insertarVariableLocal(fun,var2);
+	}
+	{ gen.generadorVariables(var.image);} 
+	[VariablesAsignacion(var)]
 	(
-		<COMA> variable = <IDENTIFICADOR> 
-		{		
-			TokenAsignaciones.InsertarSimbolo(variable, aux);
-		} 
-		[VariablesAsignacion(variable)]
+		<COMA>
+		var = <IDENTIFICADOR> 
+		{	var2 = var;
+			var2.setKind(td); 	
+			TokenAsignaciones.insertarVariableLocal(fun,var2);
+		}
+		{ gen.generadorVariables(var.image);}
+		[VariablesAsignacion(var)]
 	)*	
 	<PUNTOYCOMA> 
 )
-	(cuerpo())
+	(VS(fun))
 }
 
+// *********Definicion de las variables de asignacion
 void VariablesAsignacion(Token v1):
 {
 	Token v2;
 	Token v3;
-	String res;	
+	String res;
 	boolean imp = false;
 }
 {
 	<IGUAL>
-	(TiposAsignaciones())
+	(TiposAsignaciones(v1))
 	  {  
 		v2 = token;
 		res = TokenAsignaciones.checkAsing(v1, v2);
-		
 		if(res != " ")
 		{
 			System.out.println(res);
 			imp = true;
 		}
+
 	  }
-	  (OpAritmetico()
-	  TiposAsignaciones()
+	  (OpAritmetico(v1,v2)
+	  TiposAsignaciones(v1)
 	  {  
 		v3 = token;
 		res = TokenAsignaciones.checkAsing(v1, v3);
@@ -263,115 +279,151 @@ void VariablesAsignacion(Token v1):
 		{
 			System.out.println(res);
 		}
-	  })*
+	   })*
+	   
+	   
+	  
 }
 
-void cuerpo():
+void VS(Token fun):
 {}
 {
-	LOOKAHEAD(3)VariablesLocales() | Sentencias()
+	LOOKAHEAD(3)VariablesLocales(fun) | Sentencias(fun)
 }
 
-void Sentencias():
+// *********definicion de las sentencias que se pueden realizar en las funciones
+void Sentencias(Token fun):
 {}
 {
 	(	
-	  VariablesLocales()	
-        | SentenciaIf() 
-	| SentenciaDo()	
+	  VariablesLocales(fun)	
+    | SentenciaIf() 
+	| SentenciaDo()
+	| SentenciaWhile()
 	| LOOKAHEAD(2)SentenciaAsignacion()<PUNTOYCOMA>{TokenAsignaciones.segunda = 0;}
-	| SentenciaOUT()
-	| SentenciaInput()<PUNTOYCOMA>
+	| SentenciaWrite()
+	| SentenciaRead()<PUNTOYCOMA>
 	)*
 }
 
-//Sentencia IF
+// *********Definicion de Sentencia IF
 void SentenciaIf():
-{}
+{Token fun= new Token();
+GenerarCodigo gen = new GenerarCodigo();
+}
 {
-	<IF><PARIZQ> A() <PARDER> <THEN > <LLAVEIZQ> Sentencias() <LLAVEDER> (Sino())* 
+	<IF><PARIZQ> {gen.ifs(1);} A() <PARDER> <THEN > <LLAVEIZQ> {gen.ifs(2);}Sentencias(fun) <LLAVEDER> (Sino())* 
 }
 void Sino():
-{}
+{Token fun = new Token();
+GenerarCodigo gen = new GenerarCodigo();
+}
 {
-	<ELSE><LLAVEIZQ> Sentencias() <LLAVEDER>
+	<ELSE><LLAVEIZQ> {gen.ifs(3);}Sentencias(fun) <LLAVEDER>
 }
 
 void A():
-{}
+{
+  Token v1;
+}
 {
 	  Comparaciones() ([(<AND>|<OR>)] Comparaciones())*
 }
-//Fin sentencia if
 
+// *********Definicion de Comparaciones posibles
 void Comparaciones():
-{}
-{
-	Valor()Operadores()Valor()
+{Token v1;
+Token v2;
+Token v3;
+GenerarCodigo gen = new GenerarCodigo();
 }
-void Valor():
-{}
 {
-	LOOKAHEAD(2) (<IDENTIFICADOR> | <NUMERO>) | Expresion()
-}
-void Expresion():
-{}
-{
-    LOOKAHEAD(2)(<NUMERO> | <IDENTIFICADOR>)
-	|(<IDENTIFICADOR>|<NUMERO>) OpAritmetico() (<IDENTIFICADOR>|<NUMERO>) 
+	v1=Valor()v2=Operadores()v3=Valor()
+	{ gen.operadores(v1.image,v3.image,v2.image);} 
 }
 
-void Operadores():
-{}
-{
-	    <IGUALIGUAL> 
-	  | <MENORIGUAL> 
-	  | <MAYORIGUAL> 
-	  | <DIFERENTE> 
-	  | <MAYOR> 
-	  | <MENOR> 
+Token Valor():
+{Token v1= null ;
 }
-int OpAritmetico():
-{}
 {
-	  (<MAS> {return 1;})
-	| (<MENOS> {return 1;})
-	| (<POR> {return 1;})
-	| (<DIVIDE> {return 1;})
+	LOOKAHEAD(2) (v1=<IDENTIFICADOR> | v1=<NUMERO>){return v1;}  | Expresion()
+	
+}
+Token Expresion():
+{int i;
+Token v1;
+Token v2;
+GenerarCodigo gen = new GenerarCodigo();
+}
+{
+    LOOKAHEAD(2)(v1=<NUMERO> | v1=<IDENTIFICADOR>)
+    { return v1;
+    }
+	|(v1=<IDENTIFICADOR>|v1=<NUMERO>) i=OpAritmetico(v1,v1) (v2=<IDENTIFICADOR>|v2=<NUMERO>)
+	
+}
+
+Token Operadores():
+{ Token v2;
+}
+{
+	    v2=<IGUALIGUAL> {return v2;} 	
+	  | v2=<MENORIGUAL> {return v2;} 
+	  | v2=<MAYORIGUAL> {return v2;} 
+	  | v2=<DIFERENTE>  {return v2;} 
+	  | v2=<MAYOR>  {return v2;} 
+	  | v2=<MENOR> {return v2;} 
+}
+
+// *********Definicion de operadores aritmeticos
+int OpAritmetico(Token v1, Token v2):
+{GenerarCodigo gen = new GenerarCodigo();
+}
+{
+	  (<MAS> {return 1;}) 
+	| (<MENOS> {return 2;})
+	| (<POR> {return 3;})
+	| (<DIVIDE> {return 4;})
 	| ({return 0;})
 	
-	{return 0;}
 }
 
 
 
-//Sentencia DO
+// *********Definicion de Sentencia DO
 void SentenciaDo():
-{}
+{Token fun= new Token();
+GenerarCodigo gen = new GenerarCodigo();}
 {
-	<DO> <LLAVEIZQ>Sentencias() <LLAVEDER> <WHILE> <PARIZQ> Comparaciones() <PARDER>
+	<DO> <LLAVEIZQ>{gen.dos(1);}Sentencias(fun) <LLAVEDER> <WHILE> <PARIZQ>{gen.dos(2);} Comparaciones() <PARDER> <PUNTOYCOMA>
 		
 }
 
-//Sentencia WHILE
+// *********Definicion de WHILE
 void SentenciaWhile():
-{}
+{Token fun= new Token();
+GenerarCodigo gen = new GenerarCodigo();
+}
 {
-	<WHILE> <PARIZQ> Comparaciones() <PARDER> <DO> <LLAVEIZQ> Sentencias() <LLAVEDER>
+	<WHILE> <PARIZQ> {gen.dos(3);}Comparaciones() <PARDER> <DO> <LLAVEIZQ> {gen.dos(4);}Sentencias(fun) <LLAVEDER>
 }
 
-//Sentencia ASIGNACION
+// *********Definicion de  Sentencia ASIGNACION
 void SentenciaAsignacion():
 {
 	Token v1;
 	Token v2;
-	Token v3;
-	int aux;
+	Token v3=null;
+	int aux,i=-1;
+	Token a;
 	String res;
 	boolean imp = false;
+	GenerarCodigo gen = new GenerarCodigo();
 }
 {
-  v1 = <IDENTIFICADOR> (<IGUAL>(TiposAsignaciones())
+  v1 = <IDENTIFICADOR> (<IGUAL>(a=TiposAsignaciones(v1){gen.asignacion(v1.image,a.image);
+}
+)
   {  
     v2 = token;
 	res = TokenAsignaciones.checkAsing(v1, v2);
@@ -382,7 +434,7 @@ void SentenciaAsignacion():
 		imp = true;
 	}
   }
-  (LOOKAHEAD(2)OpAritmetico()TiposAsignaciones()
+  (LOOKAHEAD(2)i=OpAritmetico(v1,v2)TiposAsignaciones(v1)
   {  
     v3 = token;
 	res = TokenAsignaciones.checkAsing(v1, v3);
@@ -391,31 +443,43 @@ void SentenciaAsignacion():
 	{
 		System.out.println(res);
 	}
-  })*  
+    
+      gen.operadorBinario(v1.image, v3.image,i);
+    })*
+
+    
   )
   
+  //SentenciaAsignacion ya trae <PUNTOYCOMA> en el metodo Sentencias()
 }
-void TiposAsignaciones():
-{}
+
+// *********Definicion de tipos de asignaciones
+Token TiposAsignaciones(Token v1):
 {
-	  <IDENTIFICADOR> 
-	| <NUMERO> 
-	| <DECIMAL> 
-	| <CADENA> 
-	| <CARACTER>
+  Token aux;
+  
+}
+{
+	  aux=<IDENTIFICADOR> {return aux;} 		
+	| aux=<NUMERO> {return aux;}
+	|  aux=<DECIMAL> {return aux;}
+	|  aux=<CADENA> {return aux;}
+	|  aux=<CARACTER> {return aux;}
+	|  aux=< BOOLEANO > {return aux;}
+	
 }
 
 
-//Sentencia OUTPUT
-void SentenciaOUT():
-{}
+// *********Definicion de Sentencia WRITE
+void SentenciaWrite():
+{Token v1;}
 {
-	<OUT> <PARIZQ> (Expresion()(<MAS><CADENA>)*|<CADENA>(<MAS>Expresion())*)* <PARDER> <PUNTOYCOMA> 
+	<WRITE> <PARIZQ> (v1=Expresion()(<MAS><CADENA>)*|<CADENA>(<MAS>v1=Expresion())*)* <PARDER> <PUNTOYCOMA> 
 }
 
-//Sentencia inmput
-void SentenciaInput():
+// *********Definicion de Sentencia READ
+void SentenciaRead():
 {}
 {
-	<INPUT><PARIZQ><PARDER>
+	<READ><PARIZQ><PARDER>
 }

@@ -1,27 +1,21 @@
-int : saldo;
-int : k;
-int : mat[2];  
-char: j; 
-int: res;
- main(){
-	bool: a;	
-	bool: b;
-	float:x;
-	bool: r;
-	res = r+1;
-	}	
-int: Suma (int:x, int:y)
-	{
-	k=9;
-	float: resultado;
-	resultado = 4.6+k;
-	}
-bool:Suma2  (int:x, int:y)
-	{
-	int: c;
-	c=x+y;
-	bool: false;
-	
-	}
+Programa versionfinal
+{
+int:b;
+float:c,d;
+char:j;
+bool:k;
+int Main()
+{
+int:x;
+x=a-c;
+int:g=0;
+if(a>b) then{
+g=2;
 }
-	
+else
+{
+g=1;
+}
+}
+}
+
